@@ -8,3 +8,6 @@ class WikiArtApplicationTests {
 
     @Test
     void contextLoads() {
+    }
+
+}
