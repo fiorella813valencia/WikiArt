@@ -1,4 +1,4 @@
-package com.example.wikiart.application.author.domain.model;
+package com.example.wikiart.application.provider.domain.model;
 
 import com.example.wikiart.shared.domain.model.AuditModel;
 import jakarta.persistence.*;
