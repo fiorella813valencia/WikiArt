@@ -2,10 +2,11 @@ package com.example.wikiart.application.provider.domain.model;
 
 import com.example.wikiart.shared.domain.model.AuditModel;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+
 
 @Getter
 @Setter

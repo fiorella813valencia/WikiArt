@@ -10,4 +10,8 @@ import java.util.Optional;
 public interface ProviderRepository extends JpaRepository<Provider, Long> {
     List<Provider> findAll();
     Optional<Provider> findByName(String name);
+
+    Provider findByApiUrl(String apiUrl);
+
+
 }

@@ -13,7 +13,9 @@ public interface ProviderService {
     Page<Provider> getAll(Pageable pageable);
     Provider getById(Long providerId);
     Provider create(Provider provider);
-    Provider update(Provider provider, Provider request);
+    Provider update(Long providerId, Provider request);
+
+
     ResponseEntity<?> delete(Long providerId);
     //avoids the need to specify a specific type in the interface,
     // this ? allows the delete method to be more generic and supports different response
