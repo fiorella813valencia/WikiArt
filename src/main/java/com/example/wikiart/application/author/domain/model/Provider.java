@@ -7,33 +7,26 @@ import lombok.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-
 @Getter
 @Setter
 @With
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="author")
-//extends means Author inherits from AuditModel
-public class Author extends AuditModel {
+@Table(name="provider")
+public class Provider extends AuditModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotBlank
     @NotNull
-    private String firstName;
+    private String name;
     @NotBlank
     @NotNull
-    private String lastName;
-    @NotBlank
-    @NotNull
-    private String nickname;
-
-    private String photoUrl;
-
-
-
+    private String apiUrl;
+    private Boolean keyRequired=false;
+    private String apiKey;
 
 }
