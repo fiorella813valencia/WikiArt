@@ -2,14 +2,16 @@ package com.example.wikiart.application.author.mapping;
 
 import com.example.wikiart.application.author.domain.model.Author;
 import com.example.wikiart.application.author.resource.AuthorResource;
+import com.example.wikiart.application.author.resource.CreateAuthorResource;
 import com.example.wikiart.shared.mapping.EnhancedModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class AuthorMapper {
+public class AuthorMapper implements Serializable {
     EnhancedModelMapper mapper;
 
     //Se envia una entidad y se cambia a un recurso
@@ -19,6 +21,10 @@ public class AuthorMapper {
     public Page<AuthorResource> modelListPage(List<Author> modelList, Pageable pageable){
         return new PageImpl<>(mapper.mapList(modelList,AuthorResource.class),pageable,modelList.size());
 
+    }
+    //se envia un recurso para que retorne entidad
+    public Author toModel(CreateAuthorResource resource){
+        return mapper.map(resource, Author.class);
     }
 
 }

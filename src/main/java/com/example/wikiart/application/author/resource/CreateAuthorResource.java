@@ -10,9 +10,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateAuthorResource {
-
     //va lo que se va a poder manipular
-
     @NotBlank
     @NotNull
     private String firstName;
@@ -22,7 +20,6 @@ public class CreateAuthorResource {
     @NotBlank
     @NotNull
     private String nickname;
-
     private String photoUrl;
 
 }
