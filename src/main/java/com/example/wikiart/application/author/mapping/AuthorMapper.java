@@ -5,6 +5,7 @@ import com.example.wikiart.application.author.resource.AuthorResource;
 import com.example.wikiart.application.author.resource.CreateAuthorResource;
 import com.example.wikiart.application.author.resource.UpdateAuthorResource;
 import com.example.wikiart.shared.mapping.EnhancedModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class AuthorMapper implements Serializable {
+    @Autowired
     EnhancedModelMapper mapper;
 
     //(CREATE) Se envia una entidad y se cambia a un recurso

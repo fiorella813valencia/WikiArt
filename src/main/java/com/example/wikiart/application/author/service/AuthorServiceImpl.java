@@ -5,13 +5,13 @@ import com.example.wikiart.application.author.domain.persistence.AuthorRepositor
 import com.example.wikiart.application.author.domain.service.AuthorService;
 import com.example.wikiart.shared.exception.ResourceNotFoundException;
 import com.example.wikiart.shared.exception.ResourceValidationException;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.validation.ConstraintViolation;
-import javax.xml.validation.Validator;
 import java.util.List;
 import java.util.Set;
 
@@ -67,7 +67,7 @@ public class AuthorServiceImpl implements AuthorService {
         Set<ConstraintViolation<Author>> violations = validator.validate(request);
 
         if(!violations.isEmpty())
-            throw new ResourceValidationException(ENTITY,violations);
+            throw new ResourceValidationException(ENTITY, violations);
 
         Author authorWithFirstNameAndLastName= authorRepository.findAuthorByFirstNameAndLastName(request.getFirstName(), request.getLastName());
 
@@ -83,6 +83,9 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public ResponseEntity<?> delete(Long authorId) {
-        return null;
+        return authorRepository.findById(authorId).map(author -> {
+            authorRepository.delete(author);
+            return ResponseEntity.ok().build();
+        }).orElseThrow(()->new ResourceNotFoundException(ENTITY,authorId));
     }
 }
