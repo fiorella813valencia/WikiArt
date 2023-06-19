@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.xml.transform.Source;
 
 
 @Getter
@@ -16,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name="author")
 //extends means Author inherits from AuditModel
-public class Author extends AuditModel {
+public class Author extends AuditModel implements Source {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

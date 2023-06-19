@@ -15,6 +15,10 @@ public interface AuthorRepository extends JpaRepository<Author,Long> {
     //(Long) indicates the data type of the Author entity identifier, in this case "id" is long
     List<Author> findAll();
     List<Author> findAuthorsByFirstName(String name);
-    Author findAuthorByFirstNameAndNickname(String name,String nickname);
+    Author findAuthorByFirstName(String name);
+    Author findAuthorByFirstNameAndLastName(String firstName,String lastName);
+
+    Author findAuthorByNickname(String nickName);
+
 
 }
