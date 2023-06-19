@@ -1,6 +1,6 @@
-package com.example.wikiart.application.author.domain.persistence;
+package com.example.wikiart.application.provider.domain.persistence;
 
-import com.example.wikiart.application.author.domain.model.Provider;
+import com.example.wikiart.application.provider.domain.model.Provider;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
