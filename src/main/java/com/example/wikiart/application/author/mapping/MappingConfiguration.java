@@ -7,7 +7,8 @@ import com.example.wikiart.application.author.mapping.ProviderMapper;
 public class MappingConfiguration {
     @Bean
     public AuthorMapper authorMapper(){return  new AuthorMapper();}
-   @Bean
-   public ProviderMapper providerMapper(){return new ProviderMapper();}
+    @Bean
+    public ProviderMapper providerMapper(){return new ProviderMapper();}
+
 }
 

@@ -16,5 +16,7 @@ public class UpdateProviderResource {
     @NotNull
     private String apiUrl;
     private Boolean keyRequired=false;
+    @NotBlank
+    @NotNull
     private String apiKey;
 }

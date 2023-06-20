@@ -46,17 +46,17 @@ public class AuthorServiceImpl implements AuthorService {
         Set<ConstraintViolation<Author>> violations = validator.validate(author);
 
         if(!violations.isEmpty())
-            throw new ResourceValidationException("holas",violations);
+            throw new ResourceValidationException(ENTITY,violations);
 
         Author authorWithFirstNameAndLastName= authorRepository.findAuthorByFirstNameAndLastName(author.getFirstName(), author.getLastName());
 
         if(authorWithFirstNameAndLastName!=null)
-            throw new ResourceValidationException("hola","An author with the same First Name already exists");
+            throw new ResourceValidationException(ENTITY,"An author with the same First Name already exists");
 
         Author authorWithNickName=authorRepository.findAuthorByNickname(author.getNickname());
 
         if(authorWithNickName!=null)
-            throw new ResourceValidationException("hola","An author with the same Nickname already exists");
+            throw new ResourceValidationException(ENTITY,"An author with the same Nickname already exists");
 
         return authorRepository.save(author);
     }

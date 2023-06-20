@@ -11,7 +11,11 @@ public interface ProviderRepository extends JpaRepository<Provider, Long> {
     List<Provider> findAll();
     Optional<Provider> findByName(String name);
 
+    Provider findProviderByName(String name);
+
     Provider findByApiUrl(String apiUrl);
+
+    Provider findByKeyRequired(Boolean status);
 
 
 }

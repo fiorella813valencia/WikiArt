@@ -19,5 +19,7 @@ public class CreateProviderResource {
     @NotNull
     private String apiUrl;
     private Boolean keyRequired=false;
+    @NotBlank
+    @NotNull
     private String apiKey;
 }

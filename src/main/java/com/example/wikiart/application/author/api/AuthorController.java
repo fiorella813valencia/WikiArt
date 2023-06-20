@@ -31,6 +31,7 @@ public class AuthorController {
         this.mapper=mapper;
     }
 
+    //GET ALL
     @Operation(summary = "Get all Authors",description = "Get all Authors in database")
     @ApiResponses(value={
             @ApiResponse(responseCode = "200",description = "Authors found",
@@ -41,8 +42,20 @@ public class AuthorController {
     public Page<AuthorResource> getAllAuthors(Pageable pageable){
         return mapper.modelListPage(authorService.getAll(),pageable);
     }
+    //GET BY ID
+    @Operation(summary = "Get an specific author",description = "Get an specific author in database")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "Author Found",
+            content = {@Content(mediaType = "application/json",
+            schema = @Schema(implementation = AuthorResource.class))})
+    })
+    @GetMapping("{authorId}")
+    public AuthorResource getAuthorById(@PathVariable Long authorId){
+        return mapper.toResource(authorService.getById(authorId));
+    }
 
-    @Operation(summary = "Create Agency", description = "Create Agency in the database.")
+    //POST
+    @Operation(summary = "Create an Author", description = "Create an Author in the database.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Agency created",
                     content = @Content(mediaType = "application/json",
@@ -54,7 +67,7 @@ public class AuthorController {
         return mapper.toResource(authorService.create(mapper.toModel(resource)));
     }
 
-
+    //PUT UPDATE
     @Operation(summary = "Update an Agency", description = "Update an Agency in the database.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Agency updated",
@@ -67,6 +80,7 @@ public class AuthorController {
         return mapper.toResource(authorService.update(authorId, mapper.toModel(resource)));
     }
 
+    //DELETE
     @Operation(summary = "Delete an Agency", description = "Delete an Agency from database.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Agency deleted", content = @Content(mediaType = "application/json"))

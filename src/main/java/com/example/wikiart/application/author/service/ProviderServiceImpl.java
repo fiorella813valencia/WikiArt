@@ -53,14 +53,19 @@ public class ProviderServiceImpl implements ProviderService {
             throw new ResourceValidationException(ENTITY,violations);
 
         Optional<Provider> providerWithName=providerRepository.findByName(provider.getName());
+        Provider providerWithSameName=providerRepository.findProviderByName(provider.getName());
 
-        if(providerWithName!=null)
+        if(providerWithSameName!=null)
             throw new ResourceValidationException(ENTITY,"A provider with the same name already exists");
 
         Provider providerWithApiUrl=providerRepository.findByApiUrl(provider.getApiUrl());
 
         if(providerWithApiUrl!=null)
             throw new ResourceValidationException(ENTITY,"A provider with the same api url already exists");
+
+        if (provider.getKeyRequired()) {
+            throw new ResourceValidationException(ENTITY, "keyRequired cannot be set to true");
+        }
 
 
         return providerRepository.save(provider);
@@ -74,14 +79,19 @@ public class ProviderServiceImpl implements ProviderService {
             throw new ResourceValidationException(ENTITY,violations);
 
         Optional<Provider> providerWithName=providerRepository.findByName(request.getName());
+        Provider providerWithSameName=providerRepository.findProviderByName(request.getName());
 
-        if(providerWithName!=null)
+        if(providerWithSameName!=null)
             throw new ResourceValidationException(ENTITY,"A provider with the same name already exists");
 
         Provider providerWithApiUrl=providerRepository.findByApiUrl(request.getApiUrl());
 
         if(providerWithApiUrl!=null)
             throw new ResourceValidationException(ENTITY,"A provider with the same api url already exists");
+
+        if (request.getKeyRequired()) {
+            throw new ResourceValidationException(ENTITY, "keyRequired cannot be set to true");
+        }
 
         return providerRepository.findById(providerId).map(
                 provider -> providerRepository.save(
