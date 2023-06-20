@@ -1,7 +1,5 @@
-package com.example.wikiart.application.provider.domain.model;
+package com.example.wikiart.application.author.resource;
 
-import com.example.wikiart.shared.domain.model.AuditModel;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -10,17 +8,10 @@ import lombok.*;
 
 @Getter
 @Setter
-@With
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name="provider")
-public class Provider extends AuditModel {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class CreateProviderResource {
+    //va lo que se manipular
     @NotBlank
     @NotNull
     private String name;
@@ -29,5 +20,4 @@ public class Provider extends AuditModel {
     private String apiUrl;
     private Boolean keyRequired=false;
     private String apiKey;
-
 }

@@ -2,10 +2,12 @@ package com.example.wikiart.shared.mapping;
 
 
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Component
 public class EnhancedModelMapper extends ModelMapper {
     public EnhancedModelMapper() {
         super();

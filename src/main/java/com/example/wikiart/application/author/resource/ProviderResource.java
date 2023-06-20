@@ -1,4 +1,4 @@
-package com.example.wikiart.application.provider.resource;
+package com.example.wikiart.application.author.resource;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

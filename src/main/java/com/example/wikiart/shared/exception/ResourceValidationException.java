@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import jakarta.validation.ConstraintViolation;
 import java.util.Set;
 import java.util.stream.Collectors;
-@ResponseStatus(HttpStatus.BAD_REQUEST)
+//@ResponseStatus(HttpStatus.BAD_REQUEST)
     public class ResourceValidationException extends RuntimeException{
 
     public ResourceValidationException(){

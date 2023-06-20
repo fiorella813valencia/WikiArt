@@ -1,9 +1,10 @@
-package com.example.wikiart.application.provider.mapping;
+package com.example.wikiart.application.author.mapping;
 
-import com.example.wikiart.application.provider.domain.model.Provider;
-import com.example.wikiart.application.provider.resource.CreateProviderResource;
-import com.example.wikiart.application.provider.resource.ProviderResource;
+import com.example.wikiart.application.author.domain.model.Provider;
+import com.example.wikiart.application.author.resource.CreateProviderResource;
+import com.example.wikiart.application.author.resource.ProviderResource;
 import com.example.wikiart.shared.mapping.EnhancedModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +13,9 @@ import java.io.Serializable;
 import java.util.List;
 
 public class ProviderMapper implements Serializable {
+
+    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+    @Autowired
     EnhancedModelMapper mapper;
 
     //Se envia una entidad y se cambia a un recurso

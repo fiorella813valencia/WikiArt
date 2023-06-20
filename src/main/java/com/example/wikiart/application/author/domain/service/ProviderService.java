@@ -1,6 +1,6 @@
-package com.example.wikiart.application.provider.domain.service;
+package com.example.wikiart.application.author.domain.service;
 
-import com.example.wikiart.application.provider.domain.model.Provider;
+import com.example.wikiart.application.author.domain.model.Provider;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;

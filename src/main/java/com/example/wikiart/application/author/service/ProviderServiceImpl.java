@@ -1,8 +1,8 @@
-package com.example.wikiart.application.provider.service;
+package com.example.wikiart.application.author.service;
 
-import com.example.wikiart.application.provider.domain.model.Provider;
-import com.example.wikiart.application.provider.domain.persistence.ProviderRepository;
-import com.example.wikiart.application.provider.domain.service.ProviderService;
+import com.example.wikiart.application.author.domain.model.Provider;
+import com.example.wikiart.application.author.domain.persistence.ProviderRepository;
+import com.example.wikiart.application.author.domain.service.ProviderService;
 import com.example.wikiart.shared.exception.ResourceNotFoundException;
 import com.example.wikiart.shared.exception.ResourceValidationException;
 import jakarta.validation.ConstraintViolation;
@@ -10,11 +10,13 @@ import jakarta.validation.Validator;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+@Service
 public class ProviderServiceImpl implements ProviderService {
 
     private static final String ENTITY="Provider";
@@ -39,7 +41,7 @@ public class ProviderServiceImpl implements ProviderService {
 
     @Override
     public Provider getById(Long providerId) {
-        return providerRepository.findById(providerId).orElseThrow(()->new ResourceNotFoundException(ENTITY,providerId));
+        return providerRepository.findById(providerId).orElseThrow(()->new ResourceNotFoundException("ENTITY,providerId"));
     }
 
     @Override
@@ -85,7 +87,7 @@ public class ProviderServiceImpl implements ProviderService {
                 provider -> providerRepository.save(
                         provider.withName(request.getName()))
                                 .withApiKey(request.getApiKey())
-                                .withApiUrl(request.getApiUrl())).orElseThrow(()->new ResourceNotFoundException(ENTITY,providerId));
+                                .withApiUrl(request.getApiUrl())).orElseThrow(()->new ResourceNotFoundException("ENTITY,providerId"));
     }
 
     @Override
@@ -93,6 +95,6 @@ public class ProviderServiceImpl implements ProviderService {
         return providerRepository.findById(providerId).map(provider -> {
             providerRepository.delete(provider);
             return ResponseEntity.ok().build();
-        }).orElseThrow(()-> new ResourceNotFoundException(ENTITY,providerId));
+        }).orElseThrow(()-> new ResourceNotFoundException("ENTITY,providerId"));
     }
 }

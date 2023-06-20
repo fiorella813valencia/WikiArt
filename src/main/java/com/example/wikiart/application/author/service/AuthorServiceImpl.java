@@ -38,7 +38,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Author getById(Long authorId) {
-        return authorRepository.findById(authorId).orElseThrow(()->new ResourceNotFoundException(ENTITY,authorId));
+        return authorRepository.findById(authorId).orElseThrow(()->new ResourceNotFoundException("ENTITY,authorId"));
     }
 
     @Override
@@ -46,17 +46,17 @@ public class AuthorServiceImpl implements AuthorService {
         Set<ConstraintViolation<Author>> violations = validator.validate(author);
 
         if(!violations.isEmpty())
-            throw new ResourceValidationException(ENTITY,violations);
+            throw new ResourceValidationException("holas",violations);
 
         Author authorWithFirstNameAndLastName= authorRepository.findAuthorByFirstNameAndLastName(author.getFirstName(), author.getLastName());
 
         if(authorWithFirstNameAndLastName!=null)
-            throw new ResourceValidationException(ENTITY,"An author with the same First Name already exists");
+            throw new ResourceValidationException("hola","An author with the same First Name already exists");
 
         Author authorWithNickName=authorRepository.findAuthorByNickname(author.getNickname());
 
         if(authorWithNickName!=null)
-            throw new ResourceValidationException(ENTITY,"An author with the same Nickname already exists");
+            throw new ResourceValidationException("hola","An author with the same Nickname already exists");
 
         return authorRepository.save(author);
     }
@@ -78,7 +78,7 @@ public class AuthorServiceImpl implements AuthorService {
                         author.withFirstName(request.getFirstName()))
                         .withLastName(request.getLastName())
                         .withNickname(request.getNickname())
-                        .withPhotoUrl(request.getPhotoUrl())).orElseThrow(()->new ResourceNotFoundException(ENTITY,authorId));
+                        .withPhotoUrl(request.getPhotoUrl())).orElseThrow(()->new ResourceNotFoundException("ENTITY,authorId"));
     }
 
     @Override
@@ -86,6 +86,6 @@ public class AuthorServiceImpl implements AuthorService {
         return authorRepository.findById(authorId).map(author -> {
             authorRepository.delete(author);
             return ResponseEntity.ok().build();
-        }).orElseThrow(()->new ResourceNotFoundException(ENTITY,authorId));
+        }).orElseThrow(()->new ResourceNotFoundException("ENTITY,authorId"));
     }
 }
