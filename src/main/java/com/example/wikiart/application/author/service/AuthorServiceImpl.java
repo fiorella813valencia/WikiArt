@@ -69,16 +69,34 @@ public class AuthorServiceImpl implements AuthorService {
         if(!violations.isEmpty())
             throw new ResourceValidationException(ENTITY, violations);
 
-        Author authorWithFirstNameAndLastName= authorRepository.findAuthorByFirstNameAndLastName(request.getFirstName(), request.getLastName());
+//        Author authorWithFirstNameAndLastName= authorRepository.findAuthorByFirstNameAndLastName(request.getFirstName(), request.getLastName());
+//
+//        if(authorWithFirstNameAndLastName!=null)
+//            throw new ResourceValidationException(ENTITY,"An author with the same First Name already exists");
+//        return authorRepository.findById(authorId).map(
+//                author -> authorRepository.save(
+//                        author.withFirstName(request.getFirstName()))
+//                        .withLastName(request.getLastName())
+//                        .withNickname(request.getNickname())
+//                        .withPhotoUrl(request.getPhotoUrl())).orElseThrow(()->new ResourceNotFoundException("ENTITY,authorId"));
 
-        if(authorWithFirstNameAndLastName!=null)
-            throw new ResourceValidationException(ENTITY,"An author with the same First Name already exists");
-        return authorRepository.findById(authorId).map(
-                author -> authorRepository.save(
-                        author.withFirstName(request.getFirstName()))
-                        .withLastName(request.getLastName())
-                        .withNickname(request.getNickname())
-                        .withPhotoUrl(request.getPhotoUrl())).orElseThrow(()->new ResourceNotFoundException("ENTITY,authorId"));
+        Author existingAuthor = authorRepository.findById(authorId)
+                .orElseThrow(() -> new ResourceNotFoundException("This Author does not exist"));
+
+        // Verificar si ya existe un autor con el mismo nombre y apellido
+        Author authorWithFirstNameAndLastName = authorRepository.findAuthorByFirstNameAndLastName(request.getFirstName(), request.getLastName());
+        if (authorWithFirstNameAndLastName != null && !authorWithFirstNameAndLastName.getId().equals(authorId)) {
+            throw new ResourceValidationException(ENTITY, "An author with the same First Name and Last Name already exists");
+        }
+
+        existingAuthor = existingAuthor.withFirstName(request.getFirstName())
+                .withLastName(request.getLastName())
+                .withNickname(request.getNickname())
+                .withPhotoUrl(request.getPhotoUrl());
+
+        Author updatedAuthor = authorRepository.save(existingAuthor);
+
+        return updatedAuthor;
     }
 
     @Override

@@ -78,26 +78,64 @@ public class ProviderServiceImpl implements ProviderService {
         if(!violations.isEmpty())
             throw new ResourceValidationException(ENTITY,violations);
 
-        Optional<Provider> providerWithName=providerRepository.findByName(request.getName());
-        Provider providerWithSameName=providerRepository.findProviderByName(request.getName());
 
-        if(providerWithSameName!=null)
-            throw new ResourceValidationException(ENTITY,"A provider with the same name already exists");
+//        Provider existingProvider = providerRepository.findById(providerId)
+//                .orElseThrow(() -> new ResourceNotFoundException("This Provider does not exist"));
+//
+//        if (!existingProvider.getName().equals(request.getName())) {
+//            // the name has changed lets begin with the validations
+//            Optional<Provider> providerWithName=providerRepository.findByName(request.getName());
+//            //Provider providerWithSameName = providerRepository.findProviderByName(request.getName());
+//            if (providerWithName.isPresent()) {
+//                throw new ResourceValidationException(ENTITY, "A provider with the same name already exists");
+//            }
+//        }
+//
+//        if (!existingProvider.getApiUrl().equals(request.getApiUrl())) {
+//            Provider providerWithApiUrl=providerRepository.findByApiUrl(request.getApiUrl());
+//
+//            if(providerWithApiUrl!=null)
+//                throw new ResourceValidationException(ENTITY,"A provider with the same api url already exists");
+//        }
+//
+//
+//        if (request.getKeyRequired()) {
+//            throw new ResourceValidationException(ENTITY, "keyRequired cannot be set to true");
+//        }
 
-        Provider providerWithApiUrl=providerRepository.findByApiUrl(request.getApiUrl());
+//        return providerRepository.findById(providerId).map(
+//                provider -> providerRepository.save(
+//                        provider.withName(request.getName()))
+//                                .withApiKey(request.getApiKey())
+//                                .withApiUrl(request.getApiUrl())).orElseThrow(()->new ResourceNotFoundException("ENTITY,providerId"));
 
-        if(providerWithApiUrl!=null)
-            throw new ResourceValidationException(ENTITY,"A provider with the same api url already exists");
+        Provider existingProvider = providerRepository.findById(providerId)
+                .orElseThrow(() -> new ResourceNotFoundException("This Provider does not exist"));
+
+        if (!existingProvider.getName().equals(request.getName())) {
+            Optional<Provider> providerWithName = providerRepository.findByName(request.getName());
+            if (providerWithName.isPresent()) {
+                throw new ResourceValidationException(ENTITY, "A provider with the same name already exists");
+            }
+        }
+
+        if (!existingProvider.getApiUrl().equals(request.getApiUrl())) {
+            Provider providerWithApiUrl = providerRepository.findByApiUrl(request.getApiUrl());
+            if (providerWithApiUrl != null) {
+                throw new ResourceValidationException(ENTITY, "A provider with the same api url already exists");
+            }
+        }
 
         if (request.getKeyRequired()) {
             throw new ResourceValidationException(ENTITY, "keyRequired cannot be set to true");
         }
 
-        return providerRepository.findById(providerId).map(
-                provider -> providerRepository.save(
-                        provider.withName(request.getName()))
-                                .withApiKey(request.getApiKey())
-                                .withApiUrl(request.getApiUrl())).orElseThrow(()->new ResourceNotFoundException("ENTITY,providerId"));
+        existingProvider = existingProvider.withName(request.getName())
+                .withApiUrl(request.getApiUrl())
+                .withApiKey(request.getApiKey());
+
+        Provider updatedProvider = providerRepository.save(existingProvider);
+        return updatedProvider;
     }
 
     @Override

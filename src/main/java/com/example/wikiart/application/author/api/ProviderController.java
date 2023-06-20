@@ -47,8 +47,8 @@ public class ProviderController {
             content = {@Content(mediaType = "application/json",
             schema = @Schema(implementation = ProviderResource.class))})
     })
-    @GetMapping("{providerId}")
-    public ProviderResource getProviderById(Long providerId){
+    @GetMapping("/{providerId}")
+    public ProviderResource getProviderById(@PathVariable Long providerId){
         return mapper.toResource(providerService.getById(providerId));
     }
 
@@ -65,25 +65,25 @@ public class ProviderController {
     }
 
     //UPDATE
-    @Operation(summary = "Update info for an Provider", description = "Update Provider info in databse")
+    @Operation(summary = "Update info for an Provider", description = "Update Provider info in database")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Provider updated",
             content = @Content(mediaType = "application/json",
             schema=@Schema(implementation = ProviderResource.class)))
 
     })
-    @PutMapping("{providerId}")
+    @PutMapping("/{providerId}")
     public ProviderResource updateProvider(@PathVariable Long providerId, @RequestBody UpdateProviderResource resource){
         return mapper.toResource(providerService.update(providerId,mapper.toModel(resource)));
     }
 
-    @Operation(summary = "Delete a Provider",description = "Delete a provider in databse")
+    @Operation(summary = "Delete a Provider",description = "Delete a provider in database")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Provider deleted",
             content = @Content(mediaType = "200",
             schema = @Schema(implementation = ProviderResource.class)))
     })
-    @DeleteMapping("{providerId}")
+    @DeleteMapping("/{providerId}")
     public ResponseEntity<?> deleteProvider(@PathVariable Long providerId){
         return providerService.delete(providerId);
     }
