@@ -9,8 +9,6 @@ import lombok.*;
 @Getter
 @Setter
 public class UpdateAuthorResource {
-
-
     private Long id;
     @NotBlank
     @NotNull
